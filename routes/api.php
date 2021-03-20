@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('/v1/test',[App\Http\Controllers\API_TestingController::class,'Testing']);
+Route::get('/v1/test','App\Http\Controllers\API_TestingController@Testing');
