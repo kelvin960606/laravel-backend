@@ -18,4 +18,4 @@ use App\Http\Controllers\API_TestingController;
     return view('welcome');
 });*/
 
-Route::get('/test',[App\Http\Controllers\API_TestingController::class,'Testing']);
+//Route::get('/test',[App\Http\Controllers\API_TestingController::class,'Testing']);

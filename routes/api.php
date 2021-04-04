@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,20 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('/v1/test','App\Http\Controllers\API_TestingController@Testing');
+//Route::get('/v1/test','App\Http\Controllers\API_TestingController@Testing');
+
+$Return = DB::table('t_menus_api_url_controller')
+    ->select('*')
+    ->where('xStatus','1')
+    ->get();
+foreach ($Return as $Val){
+    $ver = '/'.$Val->xVersion.'/';
+    switch ($Val->xMethod){
+        case 'get':
+            Route::get($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
+            break;
+        case 'post':
+            Route::post($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
+            break;
+    }
+}
