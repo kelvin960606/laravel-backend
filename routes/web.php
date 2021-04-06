@@ -19,3 +19,15 @@ use App\Http\Controllers\API_TestingController;
 });*/
 
 //Route::get('/test',[App\Http\Controllers\API_TestingController::class,'Testing']);
+
+$uri = current(explode('?', $_SERVER['REQUEST_URI']));
+    if ($uri != null) {
+        $uri = explode('/', $uri);
+        array_shift($uri);
+        if (count($uri) >= 3) {
+            if ($uri[0] == 'api') {
+                define('APP_CONTROLLER_NAME', $uri[1]);
+                define('APP_ACTION_NAME', $uri[2]);
+            }
+        }
+    }
