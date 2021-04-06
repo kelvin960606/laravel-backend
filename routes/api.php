@@ -59,3 +59,9 @@ Route::group([
     Route::post('logout', 'UserController@logout');
 });
 
+Route::group([
+    'prefix' => 'Branch'
+], function () {
+    Route::post('create', 'BranchController@Created');
+});
+
