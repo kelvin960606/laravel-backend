@@ -21,18 +21,41 @@ use Illuminate\Support\Facades\DB;
 
 //Route::get('/v1/test','App\Http\Controllers\API_TestingController@Testing');
 
-$Return = DB::table('t_menus_api_url_controller')
-    ->select('*')
-    ->where('xStatus','1')
-    ->get();
-foreach ($Return as $Val){
-    $ver = '/'.$Val->xVersion.'/';
-    switch ($Val->xMethod){
-        case 'get':
-            Route::get($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
-            break;
-        case 'post':
-            Route::post($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
-            break;
-    }
-}
+// $Return = DB::table('t_menus_api_url_controller')
+//     ->select('*')
+//     ->where('xStatus','1')
+//     ->get();
+// foreach ($Return as $Val){
+//     $ver = '/'.$Val->xVersion.'/';
+//     switch ($Val->xMethod){
+//         case 'get':
+//             Route::get($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
+//             break;
+//         case 'post':
+//             Route::post($ver.$Val->xCode,"App\\Http\\Controllers\\".$Val->xToController);
+//             break;
+//     }
+// }
+
+Route::group([
+    'prefix' => 'App'
+], function () {
+    Route::get('token', 'AppController@token');
+    Route::post('token', 'AppController@token');
+});
+
+Route::group([
+    'prefix' => 'System'
+], function () {
+    Route::post('reg', 'SystemController@reg');
+    Route::post('login', 'SystemController@login');
+});
+
+Route::group([
+    'prefix' => 'User'
+], function () {
+    Route::post('info', 'UserController@info');
+    Route::post('update', 'UserController@update');
+    Route::post('logout', 'UserController@logout');
+});
+
